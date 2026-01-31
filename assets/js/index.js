@@ -1,3 +1,31 @@
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll("nav a");
+
+function ativarLinkNoScroll() {
+  const scrollAtual = window.scrollY + 200; // 200 = offset para "ativar antes do topo"
+
+  sections.forEach(section => {
+    const topo = section.offsetTop;
+    const altura = section.offsetHeight;
+    const id = section.getAttribute("id");
+
+    if (scrollAtual >= topo && scrollAtual < topo + altura) {
+      navLinks.forEach(link => {
+        link.classList.remove("text-blue-500", "font-bold"); // remove estilo ativo
+        link.classList.add("text-gray-600"); // garante cor padrão
+
+        if (link.getAttribute("href") === `#${id}`) {
+          link.classList.add("text-blue-500", "font-bold"); // estilo ativo Tailwind
+          link.classList.remove("text-gray-600");
+        }
+      });
+    }
+  });
+}
+
+window.addEventListener("scroll", ativarLinkNoScroll);
+ativarLinkNoScroll(); // chama uma vez no carregamento
+ 
 // Menu Mobile
 const menuBtn = document.getElementById('menu-btn');
 const mobileMenu = document.getElementById('mobile-menu');
